@@ -2,14 +2,14 @@
 %define base_install_dir %{_javadir}{%name}
 
 Name:           graylog2-web
-Version:        0.20.0.07
+Version:        0.20.0.08
 Release:        1%{?dist}
 Summary:        graylog2-web
 
 Group:          System Environment/Daemons
 License:        ASL 2.0
 URL:            http://www.graylog2.org
-Source0:        graylog2-web-interface-0.20.0-preview.7.tgz
+Source0:        graylog2-web-interface-0.20.0-preview.8.tgz
 Source1:        init.d-%{name}
 Source2:        sysconfig-%{name}
 BuildArch:      noarch
@@ -26,7 +26,7 @@ Requires(pre):  shadow-utils
 A distributed, highly available, RESTful search engine
 
 %prep
-%setup -q -n graylog2-web-interface-0.20.0-preview.7
+%setup -q -n graylog2-web-interface-0.20.0-preview.8
 #we have to use a specific name here until graylog starts using real version number
 #%setup -q -n %{name}-%{version}
 
@@ -37,7 +37,10 @@ true
 rm -rf $RPM_BUILD_ROOT
 # I know we can use -p to create the root directory, but this is more to
 # keep track of the required dir
+# also, autotools doesn't like copying whole folders
+# so we use cp instead
 %{__mkdir} -p %{buildroot}/opt/graylog2/web
+%{__mkdir} -p %{buildroot}/etc/graylog2
 cp -rfv bin %{buildroot}/opt/graylog2/web/
 cp -rfv lib %{buildroot}/opt/graylog2/web/
 cp -rfv share %{buildroot}/opt/graylog2/web/
@@ -95,6 +98,10 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_localstatedir}/log/graylog2
 
 %changelog
+* Fri Dec 12 2013 lee@leebriggs.co.uk 0.20.0.08-1
+- Added init script updates for setting conf file path
+- Adding java 7 dependency
+- Updating for new preview release
 * Mon Dec 10 2013 lee@leebriggs.co.uk 0.20.0.07-1
 - Initial RPM
 
