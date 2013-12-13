@@ -16,7 +16,7 @@ BuildArch:      noarch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 Requires:       jpackage-utils
-Requires:       jre >= 1.6.0
+Requires:       jre >= 1.7.0
 
 Requires(post): chkconfig initscripts
 Requires(pre):  chkconfig initscripts
@@ -44,6 +44,7 @@ cp -rfv share %{buildroot}/opt/graylog2/web/
 
 # config
 cp -rfv conf %{buildroot}/opt/graylog2/web/
+cp -rfv conf/ %{buildroot}/etc/graylog2/web.conf
 
 
 # logs
@@ -90,6 +91,7 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/sysconfig/graylog2-web
 %defattr(-,graylog2,graylog2,-)
 /opt/graylog2/web
+/etc/graylog2/web.conf
 %dir %{_localstatedir}/log/graylog2
 
 %changelog
