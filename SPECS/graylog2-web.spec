@@ -2,8 +2,8 @@
 %define base_install_dir %{_javadir}{%name}
 
 Name:           graylog2-web
-Version:        0.20.0.08
-Release:        1%{?dist}
+Version:        0.20.0
+Release:        rc1%{?dist}
 Summary:        graylog2-web
 
 Group:          System Environment/Daemons
@@ -26,7 +26,7 @@ Requires(pre):  shadow-utils
 A distributed, highly available, RESTful search engine
 
 %prep
-%setup -q -n graylog2-web-interface-0.20.0-preview.8
+%setup -q -n graylog2-web-interface-0.20.0-rc.1
 #we have to use a specific name here until graylog starts using real version number
 #%setup -q -n %{name}-%{version}
 
@@ -47,7 +47,7 @@ cp -rfv share %{buildroot}/opt/graylog2/web/
 
 # config
 cp -rfv conf %{buildroot}/opt/graylog2/web/
-cp -rfv conf/ %{buildroot}/etc/graylog2/web.conf
+cp -rfv conf/graylog2-web-interface.conf %{buildroot}/etc/graylog2/web.conf
 
 
 # logs
@@ -98,6 +98,8 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_localstatedir}/log/graylog2
 
 %changelog
+* Tue Jan 14 2013 lee@leebriggs.co.uk 0.20.0-rc1
+- Updating for new graylog2 version
 * Fri Dec 12 2013 lee@leebriggs.co.uk 0.20.0.08-1
 - Added init script updates for setting conf file path
 - Adding java 7 dependency
