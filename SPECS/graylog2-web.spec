@@ -9,7 +9,7 @@ Summary:        graylog2-web
 Group:          System Environment/Daemons
 License:        ASL 2.0
 URL:            http://www.graylog2.org
-Source0:        graylog2-web-interface-0.20.0-preview.8.tgz
+Source0:        graylog2-web-interface-0.20.0-rc.1.tgz
 Source1:        init.d-%{name}
 Source2:        sysconfig-%{name}
 BuildArch:      noarch
@@ -98,7 +98,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_localstatedir}/log/graylog2
 
 %changelog
-* Tue Jan 14 2013 lee@leebriggs.co.uk 0.20.0-rc1
+* Tue Jan 14 2014 lee@leebriggs.co.uk 0.20.0-rc1
 - Updating for new graylog2 version
 * Fri Dec 12 2013 lee@leebriggs.co.uk 0.20.0.08-1
 - Added init script updates for setting conf file path
