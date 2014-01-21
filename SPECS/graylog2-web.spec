@@ -3,13 +3,13 @@
 
 Name:           graylog2-web
 Version:        0.20.0
-Release:        rc1%{?dist}
+Release:        rc1.1%{?dist}
 Summary:        graylog2-web
 
 Group:          System Environment/Daemons
 License:        ASL 2.0
 URL:            http://www.graylog2.org
-Source0:        graylog2-web-interface-0.20.0-rc.1.tgz
+Source0:        graylog2-web-interface-0.20.0-rc.1-1.tgz
 Source1:        init.d-%{name}
 Source2:        sysconfig-%{name}
 BuildArch:      noarch
@@ -26,7 +26,7 @@ Requires(pre):  shadow-utils
 A distributed, highly available, RESTful search engine
 
 %prep
-%setup -q -n graylog2-web-interface-0.20.0-rc.1
+%setup -q -n graylog2-web-interface-0.20.0-rc.1-1
 #we have to use a specific name here until graylog starts using real version number
 #%setup -q -n %{name}-%{version}
 
@@ -98,6 +98,8 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_localstatedir}/log/graylog2
 
 %changelog
+* Tue Jan 21 2014 lee@leebriggs.co.uk 0.20.0-rc1.1
+- Updating for rc1-1 release
 * Tue Jan 14 2014 lee@leebriggs.co.uk 0.20.0-rc1
 - Updating for new graylog2 version
 * Fri Dec 12 2013 lee@leebriggs.co.uk 0.20.0.08-1
