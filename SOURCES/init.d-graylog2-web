@@ -10,35 +10,40 @@
 ### END INIT INFO
 
 # Author: Lee Briggs <lee@leebriggs.co.uk>
+# Contributor: Zac Sprackett <zac@sprackett.com>
 
 # Source function library.
 . /etc/rc.d/init.d/functions
 
 # Pull in sysconfig settings
 [ -f /etc/sysconfig/graylog2-web ] && . /etc/sysconfig/graylog2-web
+export JAVA_HOME
 
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 DESC="Graylog2 Web"
 NAME=graylog2-web
 CMD=/opt/graylog2/web/bin/graylog2-web-interface
+
 PID_FILE=/opt/graylog2/web/RUNNING_PID
-CONF_FILE=/etc/graylog2/web.conf
-SCRIPTNAME=/etc/init.d/$NAME
+CONF_FILE=${CONF_FILE:-/etc/graylog2/web.conf}
 LOCKFILE=/var/lock/subsys/$NAME
 GL_USER=graylog2
-RUN=no
 
-# Exit if the package is not installed
-[ -e "$CMD" ] || exit 0
 
 start() {
     echo -n $"Starting ${NAME}: "
-    daemon --user=$GL_USER \
-        nohup $CMD -Dconfig.file=${CONF_FILE} > /var/log/graylog2/web.log 2>&1 &
+    daemonize -u $GL_USER \
+        -a -o /var/log/graylog2/${NAME}.log \
+        $CMD -Dconfig.file=${CONF_FILE} \
+        -Dpidfile.path=${PID_FILE} ${GRAYLOG2_WEB_OPTS}
+
     RETVAL=$?
-    echo 
-    sleep 2
-    [ $RETVAL = 0 ] && touch ${LOCKFILE}
+    if [ $? -eq 0 ]; then
+      echo_success
+    else
+      echo_failure
+    fi
+    echo
     return $RETVAL
 }
 
@@ -47,7 +52,7 @@ stop() {
     killproc -p ${PID_FILE} -d 10 $CMD
     RETVAL=$?
     echo
-    [ $RETVAL = 0 ] && rm -f ${PID_FILE} && rm -f ${LOCKFILE}
+    [ $RETVAL = 0 ] && rm -f ${PID_FILE}
     return $RETVAL
 }
 
