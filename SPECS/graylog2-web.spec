@@ -94,7 +94,7 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/sysconfig/graylog2-web
 %defattr(-,graylog2,graylog2,-)
 /opt/graylog2/web
-/etc/graylog2/web.conf
+%config(noreplace) /etc/graylog2/web.conf
 %dir %{_localstatedir}/log/graylog2
 
 %changelog
