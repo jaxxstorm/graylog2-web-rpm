@@ -34,7 +34,7 @@ RUN=no
 start() {
     echo -n $"Starting ${NAME}: "
     daemon --user=$GL_USER \
-        nohup $CMD -Dconfig.file=${CONF_FILE} > /var/log/graylog2/web.log 2>&1 &
+        nohup $CMD -Dconfig.file=${CONF_FILE} $JAVA_EXTRA_ARGS > /var/log/graylog2/web.log 2>&1 &
     RETVAL=$?
     echo 
     sleep 2
