@@ -65,7 +65,7 @@ cp -rfv conf/graylog2-web-interface.conf %{buildroot}/etc/graylog2/web.conf
 
 #Docs and other stuff
 %{__install} -p -m 644 README.md %{buildroot}/opt/graylog2/web
-%{__install} -p -m 644 log4j.xml %{buildroot}/opt/graylog2/web
+%{__install} -p -m 644 %{SOURCE3} %{buildroot}/opt/graylog2/web
 %pre
 # create graylog2 group
 if ! getent group graylog2 >/dev/null; then
