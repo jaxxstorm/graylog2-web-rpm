@@ -23,6 +23,7 @@ NAME=graylog2-web
 CMD=/opt/graylog2/web/bin/graylog2-web-interface
 PID_FILE=/opt/graylog2/web/RUNNING_PID
 CONF_FILE=/etc/graylog2/web.conf
+LOG_CONF=/opt/graylog2/web/log4j.xml
 SCRIPTNAME=/etc/init.d/$NAME
 LOCKFILE=/var/lock/subsys/$NAME
 GL_USER=graylog2
@@ -34,7 +35,7 @@ RUN=no
 start() {
     echo -n $"Starting ${NAME}: "
     daemon --user=$GL_USER \
-        nohup $CMD -Dconfig.file=${CONF_FILE} $JAVA_EXTRA_ARGS > /var/log/graylog2/web.log 2>&1 &
+        nohup $CMD -Dconfig.file=${CONF_FILE} -Dlogger.file=${WEB_LOG_CONF} $JAVA_EXTRA_ARGS -Dpidfile.path=${PID_FILE}  2>&1 &
     RETVAL=$?
     echo 
     sleep 2

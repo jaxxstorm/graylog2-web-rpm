@@ -6,4 +6,4 @@
 #GL_USER=graylog2
 #CONF_FILE=/etc/graylog2/web.conf
 #JAVA_EXTRA_ARGS="-Dhttps.port=9443 -Dhttp.port=disabled"
-
+LOG_CONF=/opt/graylog2/web/log4j.xml

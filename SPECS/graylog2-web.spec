@@ -1,17 +1,19 @@
 %define debug_package %{nil}
 %define base_install_dir %{_javadir}{%name}
+%define __jar_repack %{nil}
 
 Name:           graylog2-web
-Version:        0.20.0
-Release:        rc2%{?dist}
+Version:        0.20.2
+Release:        1%{?dist}
 Summary:        graylog2-web
 
 Group:          System Environment/Daemons
 License:        ASL 2.0
 URL:            http://www.graylog2.org
-Source0:        graylog2-web-interface-0.20.0-rc.2.tgz
+Source0:        graylog2-web-interface-%{version}.tgz
 Source1:        init.d-%{name}
 Source2:        sysconfig-%{name}
+Source3: 	log4j.xml
 BuildArch:      noarch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -26,7 +28,7 @@ Requires(pre):  shadow-utils
 A distributed, highly available, RESTful search engine
 
 %prep
-%setup -q -n graylog2-web-interface-0.20.0-rc.2
+%setup -q -n graylog2-web-interface-%{version}
 #we have to use a specific name here until graylog starts using real version number
 #%setup -q -n %{name}-%{version}
 
@@ -63,7 +65,7 @@ cp -rfv conf/graylog2-web-interface.conf %{buildroot}/etc/graylog2/web.conf
 
 #Docs and other stuff
 %{__install} -p -m 644 README.md %{buildroot}/opt/graylog2/web
-
+%{__install} -p -m 644 log4j.xml %{buildroot}/opt/graylog2/web
 %pre
 # create graylog2 group
 if ! getent group graylog2 >/dev/null; then
@@ -98,6 +100,13 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_localstatedir}/log/graylog2
 
 %changelog
+* Mon Jun 02 2014 lee@leebriggs.co.uk 0.20.2
+- Added log config 
+- Updating version
+* Wed Feb 26 2014 lee@leebriggs.co.uk 0.20.1
+- new release
+* Fri Feb 14 2014 lee@leebriggs.co.uk 0.20.0-rc3
+- Bump for new release
 * Mon Feb 10 2014 lee@leebriggs.co.uk 0.20.0-rc2
 - Bump for new release
 * Tue Jan 21 2014 lee@leebriggs.co.uk 0.20.0-rc1.1
