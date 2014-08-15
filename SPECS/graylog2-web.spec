@@ -14,11 +14,13 @@ Source0:        graylog2-web-interface-%{version}.tgz
 Source1:        init.d-%{name}
 Source2:        sysconfig-%{name}
 Source3: 	log4j.xml
+Source4:	logrotate-%{name}
 BuildArch:      noarch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 Requires:       jpackage-utils
 Requires:       java-1.7.0-openjdk
+Requires: 	logrotate
 
 Requires(post): chkconfig initscripts
 Requires(pre):  chkconfig initscripts
@@ -60,8 +62,10 @@ cp -rfv conf/graylog2-web-interface.conf %{buildroot}/etc/graylog2/web.conf
 # sysconfig and init
 %{__mkdir} -p %{buildroot}%{_sysconfdir}/sysconfig
 %{__mkdir} -p %{buildroot}%{_sysconfdir}/init.d
+%{__mkdir} -p %{buildroot}%{_sysconfdir}/logrotate.d
 %{__install} -m 755 %{SOURCE1} %{buildroot}%{_sysconfdir}/init.d/%{name}
 %{__install} -m 755 %{SOURCE2} %{buildroot}%{_sysconfdir}/sysconfig/%{name}
+%{__install} -m 644 %{SOURCE4}  %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
 
 #Docs and other stuff
 %{__install} -p -m 644 README.md %{buildroot}/opt/graylog2/web
@@ -94,6 +98,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root,-)
 %{_sysconfdir}/init.d/graylog2-web
 %config(noreplace) %{_sysconfdir}/sysconfig/graylog2-web
+%config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
 %defattr(-,graylog2,graylog2,-)
 /opt/graylog2/web
 %config(noreplace) /etc/graylog2/web.conf
