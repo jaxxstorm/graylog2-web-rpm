@@ -3,7 +3,7 @@
 %define __jar_repack %{nil}
 
 Name:           graylog2-web
-Version:        0.20.2
+Version:        0.20.6
 Release:        1%{?dist}
 Summary:        graylog2-web
 
