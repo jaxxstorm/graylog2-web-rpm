@@ -3,7 +3,7 @@
 %define __jar_repack %{nil}
 
 Name:           graylog2-web
-Version:        0.20.2
+Version:        0.20.6
 Release:        1%{?dist}
 Summary:        graylog2-web
 
@@ -25,7 +25,7 @@ Requires(pre):  chkconfig initscripts
 Requires(pre):  shadow-utils
 
 %description
-A distributed, highly available, RESTful search engine
+Graylog2 Web - Search your logs, create charts, send reports and be alerted when something happens.
 
 %prep
 %setup -q -n graylog2-web-interface-%{version}
@@ -100,6 +100,8 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_localstatedir}/log/graylog2
 
 %changelog
+* Fri Oct 03 2014 mail@rikbruggink.nl 0.20.6
+- new release
 * Mon Jun 02 2014 lee@leebriggs.co.uk 0.20.2
 - Added log config 
 - Updating version
@@ -119,4 +121,3 @@ rm -rf $RPM_BUILD_ROOT
 - Updating for new preview release
 * Mon Dec 10 2013 lee@leebriggs.co.uk 0.20.0.07-1
 - Initial RPM
-
